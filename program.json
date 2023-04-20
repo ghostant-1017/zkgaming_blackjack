@@ -1,0 +1,10 @@
+{
+    "program": "zkgaming_blackjack.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkpDqdksxewVmYJMvd6m3X5KTBQpM8arFHdv9358hqadcNg",
+        "address": "aleo1mcg3xztkp8q7lusuq70at9swkvvz7dyanhq4wflyrrhe6advwc8qax72ce"
+    },
+    "license": "MIT"
+}
