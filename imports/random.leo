@@ -50,19 +50,8 @@ program random.aleo {
         increment(exists_ids, id, 255u8);
     }
 
-    transition set_part1_nonce(p1: part1, nonce: u64) -> part1 {
-        assert(p1.nonce == 0u64);
-        return part1 {
-            owner: p1.signer,
-            gates: 0u64,
-            nonce: nonce,
-            id: p1.id,
-            signer: self.caller
-        };
-    }
-
     // part2 is sent from opponent, and we initialize nonce for it, and give it back to opponent
-    transition set_part2_nonce(p2: part2, nonce: u64) -> part2 {
+    transition set_nonce(p2: part2, nonce: u64) -> part2 {
         assert(p2.nonce == 0u64);
         return part2 {
             owner: p2.signer,
@@ -81,29 +70,5 @@ program random.aleo {
 
     finalize combine(id: u64) {
         decrement(exists_ids, id, 255u8);
-    }
-
-    transition distribute(id: u64, player1: address, player2: address) -> (part1, part2) {
-        let p1: part1 = part1 {
-            owner: player1,
-            gates: 0u64,
-            nonce: 0u64,
-            id: id,
-            signer: self.caller
-        };
-
-        let p2: part2 = part2 {
-            owner: player2,
-            gates: 0u64,
-            nonce: 0u64,
-            id: id,
-            signer: self.caller
-        };
-        return (p1, p2) then finalize(id);
-    }
-
-    finalize distribute(id: u64) {
-        // This will overflow if more than 2 same id created
-        increment(exists_ids, id, 255u8);
     }
 }
