@@ -151,7 +151,7 @@ program zkgaming_blackjack.aleo {
             }
             // Winner is casino
             if points_of_casino >= gs.points_of_player {
-                return (gs.owner, gs.cards.state, gs.game_id, gs.index;
+                return (gs.owner, gs.cards.state, gs.game_id, gs.index);
             }
 
             // There is no more cards, winner is player
