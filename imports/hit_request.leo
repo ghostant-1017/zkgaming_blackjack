@@ -6,6 +6,7 @@ program hit_request.aleo {
 
         signer: address,
         // game_id: u64,
+        // request_id: u64,
     }
 
     transition new_hit_request(owner: address) -> hit_request {

@@ -4,6 +4,9 @@ program start_request.aleo {
         public owner: address,
         gates: u64,
         signer: address,
+
+        // game_id: u64,
+        // request_id: u64,
     }
 
     transition new_start_reqeust(owner: address) -> start_request {

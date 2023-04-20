@@ -24,6 +24,8 @@ program zkgaming_blackjack.aleo {
         points_of_player: u128,
 
         game_id: u64,
+        // For simplicity
+        // request_count: u64
     }
 
     // `cards` contains the orders of 16 cards
@@ -33,7 +35,7 @@ program zkgaming_blackjack.aleo {
 
     struct card {
         player: address,
-        color: u128,
+        raw_point: u128,
         point: u128,
         game_id: u64,
     }
@@ -48,6 +50,10 @@ program zkgaming_blackjack.aleo {
     transition process_start_request(sr: start_request.leo/start_request, game_id: u64, nonce: u64) -> (random.leo/part1, random.leo/part2) {
         assert_eq(self.caller, aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px);
         return random.leo/exchange(game_id, nonce, sr.signer);
+    }
+
+    transition set_part2_nonce(p2: random.leo/part2, nonce: u64) -> random.leo/part2 {
+        return random.leo/set_nonce(p2, nonce);
     }
 
     // Casino's transition
@@ -145,7 +151,7 @@ program zkgaming_blackjack.aleo {
             }
             // Winner is casino
             if points_of_casino >= gs.points_of_player {
-                return (gs.owner, gs.cards.state, gs.game_id, gs.index);
+                return (gs.owner, gs.cards.state, gs.game_id, gs.index;
             }
 
             // There is no more cards, winner is player
@@ -164,11 +170,15 @@ program zkgaming_blackjack.aleo {
         let v: u128 = (state >> (index * 8u8));
         let mask: u128 = 255u128;
         v = v.and(mask);
-        let color: u128 = v / 13u128;
+        // let color: u128 = v / 13u128;
         let point: u128 = v % 13u128;
+        if point >= 10u128 {
+            point = 10u128;
+        }
+
         return card {
             player: player,
-            color: color,
+            raw_point: v,
             point: point,
             game_id: game_id,
         };

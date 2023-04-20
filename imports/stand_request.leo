@@ -5,7 +5,8 @@ program stand_request.aleo {
         gates: u64,
 
         signer: address,
-        // game_id: u64
+        // game_id: u64,
+        // request_id: u64,
     }
 
     transition new_stand_request(owner: address) -> stand_request {
