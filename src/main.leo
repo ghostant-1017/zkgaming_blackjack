@@ -49,6 +49,7 @@ program zkgaming_blackjack.aleo {
     // Casino's transition
     transition process_start_request(sr: start_request.leo/start_request, game_id: u64, nonce: u64) -> (random.leo/part1, random.leo/part2) {
         assert_eq(self.caller, aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px);
+        start_request.leo/drop_start_request(sr);
         return random.leo/exchange(game_id, nonce, sr.signer);
     }
 
@@ -100,6 +101,7 @@ program zkgaming_blackjack.aleo {
         assert_eq(self.caller, aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px);
         assert(gs.points_of_player <= 21u128);
         let c: card = get_card(gs.cards, gs.index, gs.player, gs.game_id);
+        hit_request.leo/drop_hit_request(hr);
         let new_gs: game_state = game_state {
             owner: gs.owner,
             gates: gs.gates,
@@ -128,6 +130,8 @@ program zkgaming_blackjack.aleo {
     // TODO: Reveal nonce;
     transition process_stand_request(gs: game_state, sr: stand_request.leo/stand_request) -> (public address, public u128, public u64, public u8) {
         assert(gs.player == sr.signer);
+        stand_request.leo/drop_stand_request(sr);
+
         // Check
         if gs.points_of_player > 21u128 {
             return (gs.owner, gs.cards.state, gs.game_id, gs.index);

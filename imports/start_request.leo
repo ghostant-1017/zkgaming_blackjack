@@ -16,4 +16,8 @@ program start_request.aleo {
             signer: self.caller,
         };
     }
+
+    transition drop_start_request(sr: start_request) {
+
+    }
 }

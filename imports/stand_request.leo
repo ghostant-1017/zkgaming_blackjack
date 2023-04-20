@@ -16,4 +16,8 @@ program stand_request.aleo {
             signer: self.caller
         };
     }
+
+    transition drop_stand_request(sr: stand_request) {
+
+    }
 }
