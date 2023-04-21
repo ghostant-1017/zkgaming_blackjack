@@ -175,7 +175,7 @@ program zkgaming_blackjack.aleo {
         let mask: u128 = 255u128;
         v = v.and(mask);
         // let color: u128 = v / 13u128;
-        let point: u128 = v % 13u128;
+        let point: u128 = v % 13u128 + 1u128;
         if point >= 10u128 {
             point = 10u128;
         }
@@ -190,10 +190,10 @@ program zkgaming_blackjack.aleo {
 
     // // ATTENTION: THIS IS A MOCK FUNCTION
     // function fisher_yates_shuffle(r: u64) -> cards {
-    //     // 01: ♠️A 02: ♠️2 ... 13: ♠️K
-    //     // 14: ♥️A 15: ♥️2 ... 26: ♥️K
-    //     // 27: ♣️A 28: ♣️2 ... 39: ♣️K
-    //     // 40: ♦️A 41: ♦️2 ... 52: ♦️K
+    //     // 00: ♠️A 02: ♠️2 ... 12: ♠️K
+    //     // 13: ♥️A 14: ♥️2 ... 25: ♥️K
+    //     // 26: ♣️A 27: ♣️2 ... 38: ♣️K
+    //     // 39: ♦️A 40: ♦️2 ... 51: ♦️K
     //     // 2^64 = 18,446,744,073,709,551,616
     //     // part1:u64 010203040506070809   ♠️A -> ♠️9   9 cards
     //     // part2:u64 101112131415161718   ♠️10 -> ♥️5  9 cards
